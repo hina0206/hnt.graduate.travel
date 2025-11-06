@@ -11,18 +11,16 @@
   <header>
     <h1 class="site-title">にほん旅ナビ</h1>
     <h2>タグから探す</h2>
-    <a href="index.html">← トップに戻る</a>
   </header>
 
   <main>
     <div class="top-buttons">
-      <a href="https://hina0206.github.io/hnt.graduate.travel/japan.html" class="footer-btn">都道府県から探す</a>
-      <a href="https://hina0206.github.io/hnt.graduate.travel.spot/index.html" class="footer-btn">観光地一覧を見る</a>
+      <a href="https://hina0206.github.io/hnt.graduate.travel/" class="footer-btn">トップに戻る</a>
     </div>
 
     <section class="tag-filter">
       <h2>タグを選択</h2>
-      <div id="tag-buttons" class="tag-buttons"></div>
+      <div id="tag-buttons"</div>
     </section>
 
     <section id="spot-cards" class="spot-grid"></section>
@@ -33,32 +31,59 @@
   </footer>
   <script>
     const spotsURL = 'https://hina0206.github.io/hnt.graduate.travel.spot/spots.json';
+    const tagsURL = 'https://hina0206.github.io/hnt.graduate.travel.spot/tag.json';
     let selectedTags = [];
 
-    fetch(spotsURL)
-      .then(res => res.json())
-      .then(data => {
-        const container = document.getElementById('spot-cards');
-        const tagContainer = document.getElementById('tag-buttons');
+    Promise.all([
+      fetch(spotsURL).then(res => res.json()),
+      fetch(tagsURL).then(res => res.json())
+    ])
+      .then(([spots, tagData]) => {
+        const tagContainer = document.getElementById('tag-sections');
+        const spotContainer = document.getElementById('spot-cards');
 
-        // 🔹 全タグ抽出（重複削除）
-        const allTags = [...new Set(data.flatMap(spot => spot.tags))].sort();
+        // URLパラメータ（?tag=〇〇）をチェック
+        const params = new URLSearchParams(window.location.search);
+        const initialTag = params.get('tag');
+        if (initialTag) selectedTags.push(initialTag);
 
-        // 🔹 タグボタン生成
-        allTags.forEach(tag => {
-          const btn = document.createElement('button');
-          btn.className = 'tag-btn';
-          btn.textContent = tag;
-          btn.addEventListener('click', () => toggleTag(tag, btn, data, container));
-          tagContainer.appendChild(btn);
+        // 🔹 タグをカテゴリごとに生成
+        tagData.categories.forEach(category => {
+          const section = document.createElement('div');
+          section.className = 'tag-category';
+
+          const title = document.createElement('h3');
+          title.textContent = category.name;
+          section.appendChild(title);
+
+          const tagList = document.createElement('div');
+          tagList.className = 'tag-buttons';
+
+          category.tags.forEach(tag => {
+            const btn = document.createElement('button');
+            btn.className = 'tag-btn';
+            btn.textContent = tag;
+            if (selectedTags.includes(tag)) btn.classList.add('active');
+
+            btn.addEventListener('click', () => toggleTag(tag, btn, spots, spotContainer));
+            tagList.appendChild(btn);
+          });
+
+          section.appendChild(tagList);
+          tagContainer.appendChild(section);
         });
 
-        // 🔹 初回カード描画（全表示）
-        renderCards(data, container);
-      })
-      .catch(err => console.error('JSON読み込みエラー:', err));
+        // 初回描画
+        const initialFiltered = selectedTags.length === 0
+          ? spots
+          : spots.filter(spot => selectedTags.every(tag => spot.tags.includes(tag)));
 
-    function toggleTag(tag, btn, data, container) {
+        renderCards(initialFiltered, spotContainer);
+      })
+      .catch(err => console.error('データ読み込みエラー:', err));
+
+    // 🔹 タグ切り替え処理
+    function toggleTag(tag, btn, spots, container) {
       if (selectedTags.includes(tag)) {
         selectedTags = selectedTags.filter(t => t !== tag);
         btn.classList.remove('active');
@@ -68,12 +93,13 @@
       }
 
       const filtered = selectedTags.length === 0
-        ? data
-        : data.filter(spot => selectedTags.every(tag => spot.tags.includes(tag)));
+        ? spots
+        : spots.filter(spot => selectedTags.every(tag => spot.tags.includes(tag)));
 
       renderCards(filtered, container);
     }
 
+    // 🔹 カード描画
     function renderCards(spots, container) {
       container.innerHTML = '';
       if (spots.length === 0) {
@@ -92,7 +118,7 @@
             <h3>${spot.name}</h3>
             <p class="pref">${spot.prefecture}</p>
             <div class="card-tags">
-              ${spot.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+              ${spot.tags.map(tag => `<span class="tag" onclick="event.stopPropagation(); window.location.href='https://hina0206.github.io/hnt.graduate.travel/tag.html?tag=${encodeURIComponent(tag)}'">${tag}</span>`).join('')}
             </div>
           </div>
         `;
