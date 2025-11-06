@@ -2,8 +2,9 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>タグで探す - にほん旅ナビ</title>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/tag-style.css">
   <script src="js/main.js" defer></script>
 </head>
 <body>
@@ -14,17 +15,90 @@
   </header>
 
   <main>
-    <p>興味のあるタグから観光地を探そう！</p>
-    <div id="tag-list">
-      <!-- JSでタグ一覧を生成 -->
+    <div class="top-buttons">
+      <a href="https://hina0206.github.io/hnt.graduate.travel/japan.html" class="footer-btn">都道府県から探す</a>
+      <a href="https://hina0206.github.io/hnt.graduate.travel.spot/index.html" class="footer-btn">観光地一覧を見る</a>
     </div>
-    <div id="spot-list">
-      <!-- JSでタグに紐づく観光地を表示 -->
-    </div>
+
+    <section class="tag-filter">
+      <h2>タグを選択</h2>
+      <div id="tag-buttons" class="tag-buttons"></div>
+    </section>
+
+    <section id="spot-cards" class="spot-grid"></section>
   </main>
 
-  <footer>
+  <footer class="footer-links">
     <p>&copy; 2025 にほん旅ナビ</p>
   </footer>
+  <script>
+    const spotsURL = 'https://hina0206.github.io/hnt.graduate.travel.spot/spots.json';
+    let selectedTags = [];
+
+    fetch(spotsURL)
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById('spot-cards');
+        const tagContainer = document.getElementById('tag-buttons');
+
+        // 🔹 全タグ抽出（重複削除）
+        const allTags = [...new Set(data.flatMap(spot => spot.tags))].sort();
+
+        // 🔹 タグボタン生成
+        allTags.forEach(tag => {
+          const btn = document.createElement('button');
+          btn.className = 'tag-btn';
+          btn.textContent = tag;
+          btn.addEventListener('click', () => toggleTag(tag, btn, data, container));
+          tagContainer.appendChild(btn);
+        });
+
+        // 🔹 初回カード描画（全表示）
+        renderCards(data, container);
+      })
+      .catch(err => console.error('JSON読み込みエラー:', err));
+
+    function toggleTag(tag, btn, data, container) {
+      if (selectedTags.includes(tag)) {
+        selectedTags = selectedTags.filter(t => t !== tag);
+        btn.classList.remove('active');
+      } else {
+        selectedTags.push(tag);
+        btn.classList.add('active');
+      }
+
+      const filtered = selectedTags.length === 0
+        ? data
+        : data.filter(spot => selectedTags.every(tag => spot.tags.includes(tag)));
+
+      renderCards(filtered, container);
+    }
+
+    function renderCards(spots, container) {
+      container.innerHTML = '';
+      if (spots.length === 0) {
+        container.innerHTML = '<p class="no-result">該当する観光地がありません。</p>';
+        return;
+      }
+
+      spots.forEach(spot => {
+        const card = document.createElement('div');
+        card.className = 'spot-card';
+        card.onclick = () => window.location.href = `https://hina0206.github.io/hnt.graduate.travel.spot/spots/${spot.id}.html`;
+
+        card.innerHTML = `
+          <img src="https://hina0206.github.io/hnt.graduate.travel.spot/${spot.mainImage}" alt="${spot.name}">
+          <div class="card-content">
+            <h3>${spot.name}</h3>
+            <p class="pref">${spot.prefecture}</p>
+            <div class="card-tags">
+              ${spot.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+  </script>
 </body>
 </html>
