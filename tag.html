@@ -116,7 +116,9 @@
           <img src="https://hina0206.github.io/hnt.graduate.travel.spot/${spot.mainImage}" alt="${spot.name}">
           <div class="card-content">
             <h3>${spot.name}</h3>
-            <p class="pref">${spot.prefecture}</p>
+            <p class="pref" onclick="event.stopPropagation(); window.location.href='https://hina0206.github.io/hnt.graduate.travel.pref/${spot.prefectureRomaji}.html'">
+                ${spot.prefecture}
+            </p>
             <div class="card-tags">
               ${spot.tags.map(tag => `<span class="tag" onclick="event.stopPropagation(); window.location.href='https://hina0206.github.io/hnt.graduate.travel/tag.html?tag=${encodeURIComponent(tag)}'">${tag}</span>`).join('')}
             </div>
