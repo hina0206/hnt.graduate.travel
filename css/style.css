@@ -1,37 +1,48 @@
-/* 全体のフォントや余白の調整 */
 body {
   font-family: "Noto Sans JP", sans-serif;
-  background: #f8f9fa;
+  background: #f5f5f5;  /* やわらかい灰 */
   margin: 0;
   padding: 0;
+  color: #333;
 }
 
-/* ヘッダー */
 header {
   background: #fff;
-  border-bottom: 2px solid #dee2e6;
+  border-bottom: 2px solid #ccc;
   padding: 20px 0;
 }
 
 .header-container {
   width: 90%;
+  max-width: 900px;
   margin: 0 auto;
   text-align: center;
 }
 
 .site-title {
-  color: #0d6efd; /* Bootstrapのテーマカラー */
-  margin-bottom: 5px;
+  color: #222;
 }
 
 header a {
-  color: #6c757d;
+  color: #555;
   text-decoration: none;
 }
 header a:hover {
-  text-decoration: underline;
+  color: #0d6efd;
 }
 
-/* マップ領域 */
 main {
-  width
+  width: 90%;
+  max-width: 1000px;
+  margin: 30px auto;
+}
+
+.japan-map svg {
+  width: 100%;
+  height: auto;
+  max-width: 900px;
+  display: block;
+  margin: 0 auto;
+}
+
+/* 都道府県の基本スタイル — 白／薄グレーベースで境界線*
