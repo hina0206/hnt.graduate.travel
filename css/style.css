@@ -57,9 +57,9 @@ footer {
 
 /* 地図エリア */
 svg {
-  width: 80%;
-  max-width: 700px;
+  width: 100%;
   height: auto;
+  display: block;
 }
 
 /* 都道府県の基本色 */
