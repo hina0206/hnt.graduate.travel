@@ -14,10 +14,27 @@ body {
 .site-header .header-inner {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   max-width: 900px;
   margin: 0 auto;
+  position: relative;
 }
-.site-header a {
+
+/* 真ん中配置の仕組み */
+.header-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  font-size: 1rem; /* 必要なら調整 */
+  color: #fff;
+}
+/* 左と右は普通に並べるだけ */
+.site-title {
+  margin: 0;
+  color: #fff;
+}
+.header-right {
   color: #fff;
   text-decoration: none;
   font-weight: bold;
