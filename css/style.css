@@ -1,19 +1,30 @@
-/* レイアウト基本 */
+/* ------------------------------
+   全体：白ベース＋淡いグレー＋青アクセント
+------------------------------ */
 body {
   margin: 0;
-  font-family: sans-serif;
-  background: #ffffff;
+  font-family: "Segoe UI", sans-serif;
+  background: #f7f8fa;   /* 真っ白すぎない柔らかい背景に */
+  color: #333;
 }
 
+/* ------------------------------
+   ヘッダー：白背景＋薄い影＋青アクセント
+------------------------------ */
 header {
-  background: #000000;
-  color: #ffffff;
-  padding: 10px;
+  background: #ffffff;
+  color: #1a1a1a;
+  padding: 16px 0;
   text-align: center;
   font-size: 16px;
   font-weight: bold;
+  border-bottom: 1px solid #e5e5e5;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
+/* ------------------------------
+   メイン：中央寄せ・写真が映える白ベース
+------------------------------ */
 main {
   background: #ffffff;
   padding: 0;
@@ -22,16 +33,21 @@ main {
   width: 100%;
 }
 
-
+/* ------------------------------
+   フッター：薄いグレーで軽く
+------------------------------ */
 footer {
-  background: #e5e5e5;
-  color: #333;
+  background: #f0f0f0;
+  color: #555;
   padding: 16px;
   text-align: center;
   margin-top: 40px;
+  font-size: 14px;
 }
 
-/* 地図エリア */
+/* ------------------------------
+   地図エリア：大きく表示
+------------------------------ */
 svg {
   width: 100vw;
   height: auto;
@@ -39,21 +55,25 @@ svg {
   max-width: none;
 }
 
-/* 都道府県の基本色（g や polygon の fill を強制上書き） */
+/* ------------------------------
+   都道府県の基本色（薄いグレー）
+------------------------------ */
 svg a g,
 svg a g polygon {
-  fill: #cccccc !important;
+  fill: #d9d9d9 !important;  /* ちょい明るい灰色に */
   transition: 0.2s;
   cursor: pointer;
 }
 
-/* ホバー時の色変更（上書き確実にする） */
+/* ------------------------------
+   ホバー時：ブランドカラー青
+------------------------------ */
 svg a g:hover,
 svg a g:hover polygon {
-  fill: #4ea5ff !important;
+  fill: #4ea5ff !important;   /* Aデザインの青 */
 }
 
-/* ホバー時の色変更 */
+/* 念のための保険 */
 .pref:hover {
   fill: #4ea5ff;
 }
