@@ -1,34 +1,49 @@
+/* ------------------------------
+   全体：白×やわグレー
+------------------------------ */
 body {
   font-family: "Noto Sans JP", sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #fafafa;
+  background-color: #f7f8fa;
   color: #333;
 }
 
+/* ------------------------------
+   ヘッダー：白背景＋薄グレーライン
+------------------------------ */
 header {
-  background-color: #4a90e2;
-  color: white;
+  background-color: #ffffff;
+  color: #1a1a1a;
   text-align: center;
   padding: 1rem;
+  border-bottom: 1px solid #e6e6e6;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
+/* ------------------------------
+   メイン：中央寄せ
+------------------------------ */
 main {
   max-width: 900px;
   margin: 0 auto;
   padding: 1rem;
 }
 
+/* ------------------------------
+   上部のボタン類
+------------------------------ */
 .top-buttons {
   text-align: center;
   margin-bottom: 20px;
 }
 
+/* ホームへ戻る等の大きいボタン */
 .footer-btn {
   display: inline-block;
   margin: 5px 10px;
   padding: 10px 20px;
-  background-color: #4a90e2;
+  background-color: #4ea5ff; /* 統一アクセント青 */
   color: white;
   text-decoration: none;
   border-radius: 8px;
@@ -37,21 +52,26 @@ main {
 }
 
 .footer-btn:hover {
-  background-color: #357ABD;
+  background-color: #2f8fe6;
 }
 
-/* タグカテゴリ */
+/* ------------------------------
+   タグカテゴリ見出し
+------------------------------ */
 .tag-category {
   margin-bottom: 1.5rem;
 }
 
 .tag-category h3 {
-  color: #4a4a4a;
-  border-left: 5px solid #4a90e2;
+  color: #444;
+  border-left: 5px solid #4ea5ff; /* アクセント青 */
   padding-left: 0.5rem;
   margin-bottom: 0.5rem;
 }
 
+/* ------------------------------
+   タグボタン
+------------------------------ */
 .tag-buttons {
   display: flex;
   flex-wrap: wrap;
@@ -59,9 +79,8 @@ main {
   margin-bottom: 1rem;
 }
 
-/* タグボタン */
 .tag-btn {
-  background-color: #e0f0ff;
+  background-color: #e6f2ff; /* やさしい青 */
   color: #0077cc;
   border: none;
   border-radius: 20px;
@@ -72,16 +91,18 @@ main {
 }
 
 .tag-btn.active {
-  background-color: #4a90e2;
+  background-color: #4ea5ff;
   color: white;
   font-weight: bold;
 }
 
 .tag-btn:hover {
-  background-color: #b3d9ff;
+  background-color: #cfe7ff;
 }
 
-/* カード表示 */
+/* ------------------------------
+   スポットカード
+------------------------------ */
 .spot-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -91,14 +112,15 @@ main {
 .spot-card {
   background: white;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
   overflow: hidden;
-  transition: transform 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s;
   cursor: pointer;
 }
 
 .spot-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-4px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.12);
 }
 
 .spot-card img {
@@ -120,13 +142,14 @@ main {
   color: #666;
 }
 
+/* 小タグ */
 .card-tags {
   margin-top: 0.5rem;
 }
 
 .tag {
   display: inline-block;
-  background-color: #e0f0ff;
+  background-color: #e6f2ff;
   color: #0077cc;
   border-radius: 12px;
   padding: 0.2rem 0.6rem;
@@ -135,6 +158,7 @@ main {
   cursor: pointer;
 }
 
+/* 結果なし */
 .no-result {
   text-align: center;
   color: #777;
