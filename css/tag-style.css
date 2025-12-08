@@ -199,11 +199,9 @@ main {
 
 /* 共通フッター */
 .site-footer {
-  background-color: #f6f6f8;
+  background: #f0f0f0;
+  color: #333;
   text-align: center;
-  padding: 1rem 0;
-  margin-top: 2rem;
+  padding: 1rem;
   border-top: 1px solid #ddd;
-  color: #666;
-  font-size: 0.9rem;
 }
