@@ -2,54 +2,30 @@
 body {
   margin: 0;
   font-family: sans-serif;
-  background: #fff;
-  color: #333;
+  background: #ffffff;
 }
 
-.site-header {
-  background: #000;
-  color: #fff;
-  padding: 1rem;
-}
-.site-header .header-inner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 900px;
-  margin: 0 auto;
-  position: relative;
-}
-
-/* 真ん中配置の仕組み */
-.header-center {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  margin: 0;
-  font-size: 1rem; /* 必要なら調整 */
-  color: #fff;
-}
-/* 左と右は普通に並べるだけ */
-.site-title {
-  margin: 0;
-  color: #fff;
-}
-.header-right {
-  color: #fff;
-  text-decoration: none;
+header {
+  background: #000000;
+  color: #ffffff;
+  padding: 10px;
+  text-align: center;
+  font-size: 16px;
   font-weight: bold;
 }
 
 main {
   background: #ffffff;
-  padding: 24px;
+  padding: 0;
   display: flex;
   justify-content: center;
+  width: 100%;
 }
 
+
 footer {
-  background: #888;
-  color: #fff;
+  background: #e5e5e5;
+  color: #333;
   padding: 16px;
   text-align: center;
   margin-top: 40px;
@@ -57,17 +33,24 @@ footer {
 
 /* 地図エリア */
 svg {
-width: 100vw;
-height: auto;
-display: block;
-max-width: none;
+  width: 100vw;
+  height: auto;
+  display: block;
+  max-width: none;
 }
 
-/* 都道府県の基本色 */
-.pref {
-  fill: #cccccc;
+/* 都道府県の基本色（g や polygon の fill を強制上書き） */
+svg a g,
+svg a g polygon {
+  fill: #cccccc !important;
   transition: 0.2s;
   cursor: pointer;
+}
+
+/* ホバー時の色変更（上書き確実にする） */
+svg a g:hover,
+svg a g:hover polygon {
+  fill: #4ea5ff !important;
 }
 
 /* ホバー時の色変更 */
