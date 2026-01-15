@@ -191,6 +191,7 @@ main {
   font-size: 0.8rem;
   padding: 0;
   cursor: pointer;
+   pointer-events: auto;
 }
 
 .read-more:hover {
