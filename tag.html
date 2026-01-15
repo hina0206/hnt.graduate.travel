@@ -137,6 +137,21 @@
             </div>
           </div>
         `;
+        const desc = card.querySelector('.description');
+const btn = card.querySelector('.read-more');
+
+// 文章が短い場合はボタン消す
+if (desc.scrollHeight <= desc.clientHeight) {
+  btn.style.display = 'none';
+} else {
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+
+    const isOpen = desc.classList.toggle('open');
+    btn.textContent = isOpen ? '閉じる' : '続きを読む…';
+  });
+}
+
         container.appendChild(card);
       });
     }
