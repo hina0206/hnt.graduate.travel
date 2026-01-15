@@ -128,6 +128,10 @@
             <p class="pref" onclick="event.stopPropagation(); window.location.href='https://hina0206.github.io/hnt.graduate.travel.pref/${spot.prefectureRomaji}.html'">
                 ${spot.prefecture}
             </p>
+            <p class="description">
+              ${spot.description}
+            </p>
+            <button class="read-more">続きを読む…</button>
             <div class="card-tags">
               ${spot.tags.map(tag => `<span class="tag" onclick="event.stopPropagation(); window.location.href='https://hina0206.github.io/hnt.graduate.travel/tag.html?tag=${encodeURIComponent(tag)}'">${tag}</span>`).join('')}
             </div>
